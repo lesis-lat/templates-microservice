@@ -44,3 +44,4 @@ index:
     42: detail-unmonitored-ec2
     43: improper-https-configuration
     44: broken-access-control
+    45: clicjacking
