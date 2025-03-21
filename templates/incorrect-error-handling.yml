@@ -1,0 +1,57 @@
+vulnerability:
+  name:
+    pt-br: "Tratamento Incorreto de Erros"
+    en: "Incorrect Error Handling"
+    es: "Manejo Incorrecto de Errores"
+  type: web
+  category: Misconfiguration
+  description:
+    pt-br: |
+      A aplicação expõe informações sigilosas através de mensagens de erro detalhadas. Um atacante pode explorar esses dados para entender melhor a estrutura interna do sistema e direcionar ataques mais eficazes contra componentes específicos da aplicação.
+      Isso ocorre porque certos erros retornados pela API contêm informações que não deveriam ser reveladas, como caminhos de instalação da aplicação, estrutura de diretórios e, em alguns casos, credenciais parciais ou dados de configuração do ambiente.
+    en: |
+      The application exposes sensitive information through detailed error messages. An attacker can exploit this data to better understand the system's internal structure and craft more targeted attacks against specific components.
+      This happens because certain API errors return information that should not be disclosed, such as application installation paths, directory structures, and, in some cases, partial credentials or environment configuration details.
+    es: |
+      La aplicación expone información sensible a través de mensajes de error detallados. Un atacante puede explotar estos datos para comprender mejor la estructura interna del sistema y diseñar ataques más dirigidos contra componentes específicos.
+      Esto sucede porque ciertos errores devueltos por la API contienen información que no debería revelarse, como rutas de instalación de la aplicación, estructura de directorios y, en algunos casos, credenciales parciales o detalles de configuración del entorno.
+  impact:
+    pt-br: |
+      - Permite que um atacante obtenha informações sobre o ambiente de execução da aplicação.
+      - Pode expor caminhos de arquivos e diretórios sensíveis no servidor.
+      - Facilita ataques como enumeração de diretórios, engenharia reversa da aplicação e exploração de vulnerabilidades conhecidas em componentes utilizados.
+    en: |
+      - Allows an attacker to gather information about the application's runtime environment.
+      - Can expose sensitive file paths and directories on the server.
+      - Facilitates attacks such as directory enumeration, application reverse engineering, and exploitation of known vulnerabilities in used components.
+    es: |
+      - Permite a un atacante obtener información sobre el entorno de ejecución de la aplicación.
+      - Puede exponer rutas de archivos y directorios sensibles en el servidor.
+      - Facilita ataques como enumeración de directorios, ingeniería inversa de la aplicación y explotación de vulnerabilidades conocidas en componentes utilizados.
+  recommendation:
+    pt-br: |
+      Para mitigar esse problema:
+      - Configure a aplicação para registrar erros apenas em arquivos de log seguros, acessíveis apenas por administradores e equipe de suporte.
+      - Exiba mensagens genéricas ao usuário final, como “Ocorreu um erro ao processar a solicitação”.
+      - Realize um hardening do ambiente, garantindo que detalhes internos do sistema não sejam expostos por meio de mensagens de erro.
+      - Implemente tratamento adequado de exceções no código, evitando que erros internos sejam propagados para a interface do usuário.
+    en: |
+      To mitigate this issue:
+      - Configure the application to log errors only in secure log files, accessible only to administrators and support teams.
+      - Display generic error messages to the end user, such as "An error occurred while processing the request."
+      - Harden the environment to ensure internal system details are not exposed through error messages.
+      - Implement proper exception handling in the code to prevent internal errors from being leaked to the user interface.
+    es: |
+      Para mitigar este problema:
+      - Configure la aplicación para registrar errores solo en archivos de registro seguros, accesibles solo por administradores y equipos de soporte.
+      - Muestre mensajes de error genéricos al usuario final, como "Ocurrió un error al procesar la solicitud".
+      - Refuerce la seguridad del entorno para evitar que los detalles internos del sistema se expongan a través de mensajes de error.
+      - Implemente un manejo adecuado de excepciones en el código para evitar que los errores internos se filtren a la interfaz del usuario.
+  references:
+    - https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html
+    - https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/08-Testing_for_Error_Handling/README
+    - https://owasp.org/www-community/Improper_Error_Handling
+    - https://cwe.mitre.org/data/definitions/728.html
+    - https://cwe.mitre.org/data/definitions/717.html
+    - https://owasp.org/www-community/attacks/Full_Path_Disclosure
+    - https://cwe.mitre.org/data/definitions/200.html
