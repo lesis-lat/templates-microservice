@@ -1,0 +1,53 @@
+vulnerability:
+  name:
+    pt-br: "Token Sensível Exposto na URL"
+    en: "Sensitive Token Exposed in URL"
+    es: "Token Sensible Expuesto en la URL"
+  type: "Exposição de Informações Sensíveis"
+  category: "Gerenciamento de Sessão"
+  description:
+    pt-br: |
+      Durante o processo de redefinição de senha, a aplicação envia um link de recuperação para o e-mail do usuário. Esse link contém um token de autorização diretamente na URL, o que representa um risco de segurança significativo.
+      Tokens sensíveis não devem ser incluídos em URLs, pois:
+      - Podem ser armazenados em logs de servidores, navegadores e proxies.
+      - Podem ser expostos através do cabeçalho `Referer` ao navegar para outro site.
+      - São suscetíveis a ataques de Man-in-the-Middle (MITM), caso a comunicação não seja devidamente protegida.
+    en: |
+      During the password reset process, the application sends a recovery link to the user's email. This link contains an authorization token directly in the URL, posing a significant security risk.
+      Sensitive tokens should not be included in URLs because:
+      - They may be stored in server, browser, and proxy logs.
+      - They may be exposed through the `Referer` header when navigating to another site.
+      - They are vulnerable to Man-in-the-Middle (MITM) attacks if communication is not properly secured.
+    es: |
+      Durante el proceso de restablecimiento de contraseña, la aplicación envía un enlace de recuperación al correo electrónico del usuario. Este enlace contiene un token de autorización directamente en la URL, lo que representa un riesgo significativo de seguridad.
+      Los tokens sensibles no deben incluirse en las URLs porque:
+      - Pueden almacenarse en registros de servidores, navegadores y proxies.
+      - Pueden exponerse a través del encabezado `Referer` al navegar a otro sitio.
+      - Son vulnerables a ataques Man-in-the-Middle (MITM) si la comunicación no está debidamente protegida.
+  impact:
+    pt-br: |
+      Se um atacante obtiver acesso ao link de redefinição de senha, ele poderá redefinir a senha do usuário a qualquer momento, comprometendo a conta sem a necessidade de conhecer a senha original.
+    en: |
+      If an attacker gains access to the password reset link, they can reset the user's password at any time, compromising the account without needing to know the original password.
+    es: |
+      Si un atacante obtiene acceso al enlace de restablecimiento de contraseña, podrá restablecer la contraseña del usuario en cualquier momento, comprometiendo la cuenta sin necesidad de conocer la contraseña original.
+  recommendation:
+    pt-br: |
+      Para mitigar esse risco, recomenda-se:
+      - Remover o token da URL e, em vez disso, enviá-lo no corpo da requisição POST.
+      - Solicitar uma informação adicional de autenticação antes de permitir a redefinição da senha, como data de nascimento ou uma pergunta secreta.
+      - Configurar a aplicação para expirar rapidamente tokens de redefinição de senha e limitar seu uso a uma única tentativa.
+    en: |
+      To mitigate this risk, it is recommended to:
+      - Remove the token from the URL and instead send it in the body of a POST request.
+      - Require an additional authentication factor before allowing password resets, such as date of birth or a security question.
+      - Configure the application to expire password reset tokens quickly and limit their use to a single attempt.
+    es: |
+      Para mitigar este riesgo, se recomienda:
+      - Eliminar el token de la URL y, en su lugar, enviarlo en el cuerpo de una solicitud POST.
+      - Requerir un factor de autenticación adicional antes de permitir el restablecimiento de la contraseña, como la fecha de nacimiento o una pregunta de seguridad.
+      - Configurar la aplicación para que los tokens de restablecimiento de contraseña expiren rápidamente y limitar su uso a un solo intento.
+  references:
+    - https://www.owasp.org/index.php/Session_Management_Cheat_Sheet
+    - https://portswigger.net/kb/issues/00500700_session-token-in-url
+    - https://www.kaspersky.com.br/blog/what-is-a-man-in-the-middle-attack/462/
