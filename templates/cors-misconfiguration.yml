@@ -1,0 +1,62 @@
+vulnerability:
+  name:
+    pt-br: "Configuração Incorreta de CORS"
+    en: "CORS Misconfiguration"
+    es: "Configuración Incorrecta de CORS"
+  type: web
+  category: Misconfiguration
+  description:
+    en: |
+      Cross-Origin Resource Sharing (CORS) is a security mechanism that controls how web applications from different origins interact with each other via HTTP headers. When improperly configured, CORS may allow unauthorized access to sensitive resources, enabling attackers to exploit user sessions or exfiltrate data.  
+
+      A misconfigured `Access-Control-Allow-Origin` header that allows arbitrary origins can be abused to make authenticated requests from malicious sites, leading to potential data leaks. If the `Access-Control-Allow-Credentials: true` header is also enabled, session cookies or authentication tokens may be exposed, increasing the risk of session hijacking and unauthorized API access.
+    pt-br: |
+      O Cross-Origin Resource Sharing (CORS) é um mecanismo de segurança que controla como aplicações web de diferentes origens interagem por meio de cabeçalhos HTTP. Quando mal configurado, o CORS pode permitir acesso não autorizado a recursos sensíveis, possibilitando que atacantes explorem sessões de usuários ou exfiltrem dados.  
+
+      Um cabeçalho `Access-Control-Allow-Origin` mal configurado, permitindo origens arbitrárias, pode ser explorado para realizar requisições autenticadas a partir de sites maliciosos, resultando em vazamento de dados. Se o cabeçalho `Access-Control-Allow-Credentials: true` também estiver ativado, cookies de sessão ou tokens de autenticação podem ser expostos, aumentando o risco de sequestro de sessão e acesso não autorizado à API.
+    es: |
+      El Cross-Origin Resource Sharing (CORS) es un mecanismo de seguridad que controla cómo interactúan las aplicaciones web de diferentes orígenes a través de encabezados HTTP. Cuando se configura incorrectamente, CORS puede permitir el acceso no autorizado a recursos sensibles, permitiendo a los atacantes explotar sesiones de usuario o extraer datos.  
+
+      Un encabezado `Access-Control-Allow-Origin` mal configurado que permite orígenes arbitrarios puede ser abusado para realizar solicitudes autenticadas desde sitios maliciosos, lo que podría resultar en filtraciones de datos. Si el encabezado `Access-Control-Allow-Credentials: true` también está habilitado, las cookies de sesión o los tokens de autenticación pueden ser expuestos, aumentando el riesgo de secuestro de sesión y acceso no autorizado a la API.
+  impact:
+    en: |
+      A CORS misconfiguration may allow:
+      - Unauthorized access to protected API resources from untrusted domains;
+      - Exposure of sensitive data, including user account information;
+      - Increased risk of attacks like cross-site request forgery (CSRF) and cross-origin theft of authentication tokens;
+      - Abuse of authenticated user sessions if credentials are included in cross-origin requests.
+    pt-br: |
+      Uma configuração incorreta do CORS pode permitir:
+      - Acesso não autorizado a recursos protegidos da API a partir de domínios não confiáveis;
+      - Exposição de dados sensíveis, incluindo informações de contas de usuários;
+      - Maior risco de ataques como falsificação de solicitação entre sites (CSRF) e roubo de tokens de autenticação entre origens;
+      - Abuso de sessões autenticadas se credenciais forem incluídas em requisições entre origens.
+    es: |
+      Una mala configuración de CORS puede permitir:
+      - Acceso no autorizado a recursos protegidos de la API desde dominios no confiables;
+      - Exposición de datos sensibles, incluida la información de cuentas de usuario;
+      - Mayor riesgo de ataques como falsificación de solicitud entre sitios (CSRF) y robo de tokens de autenticación entre orígenes;
+      - Abuso de sesiones autenticadas si las credenciales están incluidas en las solicitudes de origen cruzado.
+  recommendation:
+    en: |
+      To mitigate risks, it is recommended to:
+      - Set `Access-Control-Allow-Origin` to a specific allowlist of trusted domains instead of using `*`;
+      - Avoid enabling `Access-Control-Allow-Credentials: true` unless absolutely necessary;
+      - Restrict HTTP methods allowed in CORS requests using `Access-Control-Allow-Methods`;
+      - Validate and log cross-origin requests to detect potential abuse.
+    pt-br: |
+      Para mitigar os riscos, recomenda-se:
+      - Configurar `Access-Control-Allow-Origin` para permitir apenas uma lista de domínios confiáveis, evitando o uso de `*`;
+      - Evitar ativar `Access-Control-Allow-Credentials: true`, a menos que seja estritamente necessário;
+      - Restringir os métodos HTTP permitidos nas requisições CORS com `Access-Control-Allow-Methods`;
+      - Validar e registrar requisições entre origens para detectar possíveis abusos.
+    es: |
+      Para mitigar los riesgos, se recomienda:
+      - Configurar `Access-Control-Allow-Origin` para permitir solo una lista de dominios confiables en lugar de usar `*`;
+      - Evitar habilitar `Access-Control-Allow-Credentials: true`, a menos que sea absolutamente necesario;
+      - Restringir los métodos HTTP permitidos en las solicitudes CORS utilizando `Access-Control-Allow-Methods`;
+      - Validar y registrar solicitudes de origen cruzado para detectar posibles abusos.
+  references:
+    - https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+    - https://owasp.org/www-community/attacks/CORS_OriginHeaderScrutiny
+    - https://portswigger.net/web-security/cors/access-control-allow-origin
