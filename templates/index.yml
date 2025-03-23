@@ -43,3 +43,4 @@ index:
     41: dated-ami-images
     42: detail-unmonitored-ec2
     43: improper-https-configuration
+    44: broken-access-control
