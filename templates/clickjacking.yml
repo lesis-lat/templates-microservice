@@ -1,0 +1,71 @@
+vulnerability:
+  name:
+    pt-br: "Clickjacking"
+    en: "Clickjacking"
+    es: "Clickjacking"
+  type: web
+  category: UI Redressing
+  description:
+    pt-br: |
+      O ataque de Clickjacking engana usuários ao sobrepor conteúdos maliciosos em uma aplicação legítima, levando-os a interagir com elementos ocultos sem perceber. Isso é possível quando um site permite ser carregado dentro de um `<iframe>`, possibilitando que um atacante insira sobreposições e scripts para capturar ações dos usuários ou executar comandos críticos sem seu consentimento.
+      
+      Durante a análise, identificou-se que a aplicação não implementa o cabeçalho de proteção `X-Frame-Options`, tornando-a vulnerável a esse tipo de ataque.
+    en: |
+      Clickjacking attacks deceive users by overlaying malicious content on a legitimate application, leading them to interact with hidden elements unknowingly. This occurs when a site allows itself to be loaded inside an `<iframe>`, enabling an attacker to insert overlays and scripts to capture user actions or execute critical commands without consent.
+      
+      During analysis, it was identified that the application does not implement the `X-Frame-Options` header, making it vulnerable to this attack.
+    es: |
+      Los ataques de Clickjacking engañan a los usuarios superponiendo contenido malicioso sobre una aplicación legítima, lo que hace que interactúen con elementos ocultos sin darse cuenta. Esto ocurre cuando un sitio permite que se cargue dentro de un `<iframe>`, lo que permite a un atacante insertar superposiciones y scripts para capturar acciones de los usuarios o ejecutar comandos críticos sin su consentimiento.
+      
+      Durante el análisis, se identificó que la aplicación no implementa el encabezado `X-Frame-Options`, lo que la hace vulnerable a este ataque.
+  impact:
+    pt-br: |
+      - Usuários podem realizar ações sem seu consentimento, como excluir contas ou aprovar pagamentos.
+      - Informações sensíveis podem ser capturadas se forem expostas na interface interativa.
+      - Pode ser explorado para aumentar cliques fraudulentos em anúncios ou curtidas em redes sociais.
+    en: |
+      - Users may perform actions without their consent, such as deleting accounts or approving payments.
+      - Sensitive information may be captured if exposed in the interactive interface.
+      - Can be exploited to generate fraudulent ad clicks or social media likes.
+    es: |
+      - Los usuarios pueden realizar acciones sin su consentimiento, como eliminar cuentas o aprobar pagos.
+      - Información sensible puede ser capturada si se expone en la interfaz interactiva.
+      - Puede ser explotado para generar clics fraudulentos en anuncios o "me gusta" en redes sociales.
+  recommendation:
+    pt-br: |
+      Para mitigar o problema, deve-se configurar os seguintes cabeçalhos HTTP:
+      
+      - `X-Frame-Options`: Define se o site pode ser carregado dentro de um `<iframe>`. Opções recomendadas:
+        - `DENY`: Impede qualquer uso do site dentro de um `<iframe>`.
+        - `SAMEORIGIN`: Permite `<iframe>` apenas para páginas da mesma origem.
+      
+      - `Content-Security-Policy (CSP)`: Define políticas mais avançadas para controle de segurança. A diretiva `frame-ancestors` deve ser configurada como:
+        - `frame-ancestors 'none';` → Bloqueia qualquer `<iframe>`.
+        - `frame-ancestors 'self';` → Permite `<iframe>` apenas na mesma origem.
+        - `frame-ancestors 'self' exemplo.com parceirosite.com;` → Permite `<iframe>` apenas para domínios específicos.
+    en: |
+      To mitigate the issue, the following HTTP headers should be configured:
+      
+      - `X-Frame-Options`: Defines whether the site can be loaded inside an `<iframe>`. Recommended options:
+        - `DENY`: Prevents any `<iframe>` usage.
+        - `SAMEORIGIN`: Allows `<iframe>` only from the same origin.
+      
+      - `Content-Security-Policy (CSP)`: Provides advanced security control. The `frame-ancestors` directive should be set as:
+        - `frame-ancestors 'none';` → Blocks all `<iframe>` usage.
+        - `frame-ancestors 'self';` → Allows `<iframe>` only from the same origin.
+        - `frame-ancestors 'self' example.com partner-site.com;` → Allows `<iframe>` only from specific domains.
+    es: |
+      Para mitigar el problema, se deben configurar los siguientes encabezados HTTP:
+      
+      - `X-Frame-Options`: Define si el sitio puede cargarse dentro de un `<iframe>`. Opciones recomendadas:
+        - `DENY`: Evita cualquier uso del sitio en un `<iframe>`.
+        - `SAMEORIGIN`: Permite `<iframe>` solo desde la misma origen.
+      
+      - `Content-Security-Policy (CSP)`: Proporciona un control de seguridad más avanzado. La directiva `frame-ancestors` debe configurarse como:
+        - `frame-ancestors 'none';` → Bloquea cualquier `<iframe>`.
+        - `frame-ancestors 'self';` → Permite `<iframe>` solo en la misma origen.
+        - `frame-ancestors 'self' ejemplo.com sociosite.com;` → Permite `<iframe>` solo en dominios específicos.
+  references:
+    - https://portswigger.net/web-security/clickjacking
+    - https://owasp.org/www-community/controls/Content_Security_Policy
+    - https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Headers/X-Frame-Options
