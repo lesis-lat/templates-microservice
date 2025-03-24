@@ -1,0 +1,28 @@
+vulnerability:
+  name:
+    pt-br: "Exposição de Informações Sensíveis por Interação com a Aplicação"
+    en: "Exposure of Sensitive Information Through Application Interaction"
+    es: "Exposición de Información Sensible a Través de la Interacción con la Aplicación"
+  type: web
+  category: Misconfiguration
+  description:
+    pt-br: |
+      Essa vulnerabilidade ocorre quando a aplicação expõe informações sensíveis devido a interações diretas ou indiretas. Dados pessoais (PII), credenciais, informações de sessão e detalhes internos da aplicação podem ser acessados indevidamente, podendo comprometer a segurança e a conformidade regulatória.
+      A exposição geralmente ocorre devido a falhas de configuração ou na manipulação de erros. Em alguns casos, informações como hashes de senha podem ser indevidamente retornadas pela API, permitindo ataques de cracking ou uso indevido dessas credenciais.
+    en: |
+      This vulnerability occurs when the application exposes sensitive information through direct or indirect interactions. Personally identifiable information (PII), credentials, session details, and internal application data may be improperly accessed, compromising security and regulatory compliance.
+      Exposure usually happens due to misconfigurations or improper error handling. In some cases, the API may return password hashes, enabling cracking attacks or misuse of these credentials.
+    es: |
+      Esta vulnerabilidad ocurre cuando la aplicación expone información sensible a través de interacciones directas o indirectas. La información personal identificable (PII), credenciales, detalles de sesión y datos internos de la aplicación pueden ser accedidos indebidamente, comprometiendo la seguridad y el cumplimiento normativo.
+      La exposición generalmente ocurre debido a configuraciones incorrectas o a una gestión inadecuada de los errores. En algunos casos, la API puede devolver hashes de contraseñas, lo que permite ataques de cracking o el uso indebido de estas credenciales.
+  recommendation:
+    pt-br: |
+      Remover qualquer informação sensível das respostas da API, garantindo que dados como hashes de senha, tokens de sessão e informações internas da aplicação nunca sejam expostos ao cliente. O controle deve ser feito diretamente na camada de resposta da API, bloqueando campos sensíveis antes do retorno.
+    en: |
+      Remove any sensitive information from API responses, ensuring that password hashes, session tokens, and internal application data are never exposed to the client. This should be enforced at the response layer of the API, blocking sensitive fields before they are returned.
+    es: |
+      Eliminar cualquier información sensible de las respuestas de la API, garantizando que los hashes de contraseñas, los tokens de sesión y los datos internos de la aplicación nunca sean expuestos al cliente. Esto debe controlarse directamente en la capa de respuesta de la API, bloqueando los campos sensibles antes de su retorno.
+  references:
+    - https://owasp.org/www-community/Improper_Error_Handling
+    - https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure.html
+    - https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url
