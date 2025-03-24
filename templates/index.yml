@@ -45,3 +45,7 @@ index:
     43: improper-https-configuration
     44: broken-access-control
     45: clicjacking
+    46: cors-misconfiguration
+    47: exposure-of-sensitive-information
+    48: incorrect-error-handling
+    49: permissive-password-policy
