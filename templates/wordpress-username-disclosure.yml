@@ -1,0 +1,66 @@
+vulnerability:
+  name:
+    pt-br: "Vazamento de Nomes de Usuários através da API do WordPress"
+    en: "Username Disclosure via WordPress API"
+    es: "Divulgación de Nombres de Usuario a través de la API de WordPress"
+  type: web
+  category: Data Protection
+  description:
+    pt-br: |
+      Aplicações baseadas em WordPress podem expor nomes de usuários ativos por meio da REST API, permitindo que atacantes descubram administradores e outros usuários do sistema. Esse comportamento ocorre ao acessar o endpoint `/wp-json/wp/v2/users`, que retorna um JSON contendo um atributo `slug`, o qual representa o username de cada usuário registrado na aplicação.
+      Esse vazamento facilita ataques direcionados como brute-force, password spraying e engenharia social. Além disso, a confirmação da existência de um usuário pode ser obtida pelo feedback da aplicação ao tentar um login com um nome válido e uma senha incorreta.
+    en: |
+      WordPress-based applications may expose active usernames through the REST API, allowing attackers to discover administrators and other system users. This behavior occurs when accessing the `/wp-json/wp/v2/users` endpoint, which returns a JSON response containing a `slug` attribute representing the username of each registered user.
+      This disclosure facilitates targeted attacks such as brute-force, password spraying, and social engineering. Additionally, the application’s login feedback can confirm the existence of a user when a valid username is supplied with an incorrect password.
+    es: |
+      Las aplicaciones basadas en WordPress pueden exponer nombres de usuario activos a través de la API REST, lo que permite a los atacantes descubrir administradores y otros usuarios del sistema. Este comportamiento ocurre al acceder al endpoint `/wp-json/wp/v2/users`, que devuelve un JSON con un atributo `slug`, que representa el nombre de usuario de cada usuario registrado en la aplicación.
+      Esta divulgación facilita ataques dirigidos como fuerza bruta, password spraying e ingeniería social. Además, la retroalimentación proporcionada por la aplicación al intentar un inicio de sesión con un nombre de usuario válido y una contraseña incorrecta puede confirmar la existencia del usuario.
+  impact:
+    pt-br: |
+      Um atacante pode utilizar essa informação para:
+      - Automatizar ataques de força bruta contra usuários administrativos;
+      - Realizar ataques de password spraying;
+      - Explorar engenharia social contra usuários legítimos.
+      A exposição de usernames reduz significativamente o esforço necessário para comprometer credenciais da aplicação.
+    en: |
+      An attacker can leverage this information to:
+      - Automate brute-force attacks against administrative users;
+      - Conduct password spraying attacks;
+      - Perform social engineering against legitimate users.
+      The exposure of usernames significantly reduces the effort required to compromise application credentials.
+    es: |
+      Un atacante puede utilizar esta información para:
+      - Automatizar ataques de fuerza bruta contra usuarios administrativos;
+      - Realizar ataques de password spraying;
+      - Ejecutar ingeniería social contra usuarios legítimos.
+      La exposición de nombres de usuario reduce significativamente el esfuerzo necesario para comprometer credenciales de la aplicación.
+  recommendation:
+    pt-br: |
+      Para mitigar essa vulnerabilidade, recomenda-se:
+      - Desativar a exposição de usernames pela API REST;
+      - Restringir o acesso ao endpoint `/wp-json/wp/v2/users` para usuários autenticados;
+      - Utilizar plugins como:
+        - [Disable JSON API](https://wordpress.org/plugins/disable-json-api/)
+        - [Stop User Enumeration](https://wordpress.org/plugins/stop-user-enumeration/)
+      Essas medidas ajudam a evitar a enumeração de usuários e a reduzir o risco de ataques direcionados.
+    en: |
+      To mitigate this vulnerability, it is recommended to:
+      - Disable username exposure via the REST API;
+      - Restrict access to the `/wp-json/wp/v2/users` endpoint to authenticated users;
+      - Use plugins such as:
+        - [Disable JSON API](https://wordpress.org/plugins/disable-json-api/)
+        - [Stop User Enumeration](https://wordpress.org/plugins/stop-user-enumeration/)
+      These measures help prevent user enumeration and reduce the risk of targeted attacks.
+    es: |
+      Para mitigar esta vulnerabilidad, se recomienda:
+      - Deshabilitar la exposición de nombres de usuario a través de la API REST;
+      - Restringir el acceso al endpoint `/wp-json/wp/v2/users` solo a usuarios autenticados;
+      - Utilizar complementos como:
+        - [Disable JSON API](https://wordpress.org/plugins/disable-json-api/)
+        - [Stop User Enumeration](https://wordpress.org/plugins/stop-user-enumeration/)
+      Estas medidas ayudan a prevenir la enumeración de usuarios y a reducir el riesgo de ataques dirigidos.
+  references:
+    - https://wordpress.org
+    - https://cve.mitre.org/cgi-bin/cvename.cgi?name=2017-5487
+    - https://www.rapid7.com/db/vulnerabilities/wordpress-cve-2017-5487
+    - https://www.jinsonvarghese.com/prevent-wordpress-username-enumeration/
