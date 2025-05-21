@@ -48,3 +48,7 @@ index:
     46: cors-misconfiguration
     47: exposure-of-sensitive-information
     48: incorrect-error-handling
+    49: permissive-password-policy
+    50: reusable-token
+    51: sensitive-token-exposed-in-url
+    52: wordpress-username-disclosure
