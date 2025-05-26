@@ -1,0 +1,50 @@
+vulnerability:
+  name:
+    pt-br: "Token Reutilizável no Fluxo de Redefinição de Senha/Primeiro Acesso"
+    en: "Reusable Token in Reset Password/First Access Flow"
+    es: "Token Reutilizable en el Flujo de Restablecimiento de Contraseña/Primer Acceso"
+  type: "Manejo Inseguro de Tokens"
+  category: "Gerenciamento de Sessão"
+  description:
+    pt-br: |
+      No primeiro acesso, o usuário recebe um e-mail contendo um link para definir sua senha, composto por um token de autorização. Esse token deveria ser de uso único, garantindo que, após a redefinição de senha, ele se tornasse inválido.
+      No entanto, foi identificado que o link pode ser utilizado múltiplas vezes. Caso um atacante obtenha esse link, ele pode abusar desse comportamento para manter acesso à conta do usuário legítimo. O mesmo problema ocorre com tokens gerados para a funcionalidade de "Esqueci minha senha".
+    en: |
+      On first access, the user receives an email containing a link to set their password, which includes an authorization token. This token should be single-use, ensuring that after the password reset, it becomes invalid.
+      However, it was identified that the link can be used multiple times. If an attacker obtains this link, they can exploit this behavior to maintain access to the legitimate user's account. The same issue occurs with tokens generated for the "Forgot my password" functionality.
+    es: |
+      En el primer acceso, el usuario recibe un correo electrónico con un enlace para definir su contraseña, que incluye un token de autorización. Este token debería ser de un solo uso, asegurando que, después del restablecimiento de la contraseña, se vuelva inválido.
+      Sin embargo, se identificó que el enlace puede utilizarse múltiples veces. Si un atacante obtiene este enlace, puede explotar este comportamiento para mantener el acceso a la cuenta del usuario legítimo. El mismo problema ocurre con los tokens generados para la funcionalidad de "Olvidé mi contraseña".
+  impact:
+    pt-br: |
+      - Um atacante com acesso ao link pode redefinir a senha do usuário sempre que desejar.
+      - Possibilita ataques de sequestro de conta (account takeover).
+      - Facilita a persistência do atacante na conta da vítima mesmo após o usuário tentar recuperar o acesso.
+    en: |
+      - An attacker with access to the link can reset the user's password at any time.
+      - Enables account takeover attacks.
+      - Facilitates the attacker's persistence in the victim's account even after the user attempts to regain access.
+    es: |
+      - Un atacante con acceso al enlace puede restablecer la contraseña del usuario en cualquier momento.
+      - Permite ataques de toma de control de cuentas.
+      - Facilita la persistencia del atacante en la cuenta de la víctima, incluso después de que el usuario intente recuperar el acceso.
+  recommendation:
+    pt-br: |
+      Para mitigar esse problema:
+      - Configure os tokens para serem de uso único: uma vez utilizados, devem ser imediatamente invalidados.
+      - Estabeleça uma expiração de 24 horas para tokens não utilizados.
+      - Implemente um mecanismo de revogação que invalide automaticamente tokens antigos quando um novo for gerado para a mesma conta.
+    en: |
+      To mitigate this issue:
+      - Configure tokens to be single-use: once used, they should be immediately invalidated.
+      - Set an expiration time of 24 hours for unused tokens.
+      - Implement a revocation mechanism that automatically invalidates old tokens when a new one is generated for the same account.
+    es: |
+      Para mitigar este problema:
+      - Configure los tokens para que sean de un solo uso: una vez utilizados, deben invalidarse inmediatamente.
+      - Establezca un tiempo de expiración de 24 horas para tokens no utilizados.
+      - Implemente un mecanismo de revocación que invalide automáticamente los tokens antiguos cuando se genere uno nuevo para la misma cuenta.
+  references:
+    - https://www.owasp.org/index.php/Session_Management_Cheat_Sheet
+    - https://portswigger.net/kb/issues/00500700_session-token-in-url
+    - https://www.kaspersky.com.br/blog/what-is-a-man-in-the-middle-attack/462/
