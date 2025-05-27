@@ -14,7 +14,7 @@ index:
     12: exposure-of-sensitive-service
     13: insecure-app-permissions
     14: root-verification
-    15: s3-without-criptography
+    15: unencrypted-S3-bucket
     16: unused-security-groups
     17: ec2-ebs-without-crypto
     18: security-group-allow-sensitive-traffic
@@ -25,7 +25,7 @@ index:
     23: users-without-mfa
     24: log-integrity-disabled
     25: password-policy-reuse
-    26: s3-without-backup
+    26: s3-without-versioning
     27: ebs-without-encryption-on-snapshot
     28: hardcoded-info-in-lambda
     29: s3-with-listining
@@ -37,18 +37,17 @@ index:
     35: stored-cross-site-scripting
     36: open-redirect
     37: unencrypted-rds-instances
-    38: s3-without-versioning
+    38: wordpress-username-disclosure
     39: ec2-instances-imdsv1
     40: unattached-ebs-volumes
     41: dated-ami-images
     42: detail-unmonitored-ec2
     43: improper-https-configuration
     44: broken-access-control
-    45: clicjacking
+    45: clickjacking
     46: cors-misconfiguration
     47: exposure-of-sensitive-information
     48: incorrect-error-handling
     49: permissive-password-policy
     50: reusable-token
     51: sensitive-token-exposed-in-url
-    52: wordpress-username-disclosure
