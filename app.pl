@@ -8,7 +8,7 @@ use YAML::XS;
 use Mojolicious::Lite;
 use Mojo::JSON qw(decode_json);
 
-our $VERSION = '0.0.1';
+our $VERSION = '0.0.2';
 
 plugin 'I18N' => { namespace => 'VulnTemplates' };
 
@@ -16,12 +16,13 @@ get q{/} => sub {
     my $self   = shift;
     my $lang   = $self -> param('lang') || 'en';
     my $id     = $self -> param('id');
-    my $result = [];
     my $yaml   = YAML::XS::LoadFile('./templates/index.yml');
     my $files  = $yaml -> {"index"};
+    my $result = [];
 
     while (my ($key, $value) = each %{$files}) {
         my $load  = YAML::XS::LoadFile("./templates/$value.yml");
+
         if ($load) {
             my $template = $load -> {"vulnerability"};
 
@@ -34,6 +35,7 @@ get q{/} => sub {
                 "recommendation" => $template -> {"recommendation"} -> {$lang},
                 "references"     => $template -> {"references"}
             };
+
             push @{$result}, $item;
         }
     }
@@ -51,6 +53,7 @@ get q{/} => sub {
                 );
             }
         }
+
         return $self -> render(
             status => 404,
             json   => { "error" => "Template not found" }
@@ -66,6 +69,7 @@ get q{/} => sub {
 app -> hook(
     after_render => sub {
         my ($self, $output, $format) = @_;
+
         $self -> res -> headers -> header('Content-Security-Policy' => q{default-src 'self'});
         $self -> res -> headers -> header('X-Content-Type-Options' => 'nosniff');
         $self -> res -> headers -> header('X-Frame-Options' => 'DENY');
@@ -77,6 +81,7 @@ app -> hook(
 app -> hook(
     before_dispatch => sub {
         my $cors = shift;
+
         $cors -> res -> headers -> header('Access-Control-Allow-Origin' => q{*});
         $cors -> res -> headers -> header('Access-Control-Allow-Methods' => 'GET, OPTIONS');
         $cors -> res -> headers -> header('Access-Control-Allow-Headers' => 'Origin, Content-Type, Accept');
