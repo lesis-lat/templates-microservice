@@ -1,0 +1,60 @@
+vulnerability:
+  name:
+    pt-br: "Uso de IDs Sequenciais"
+    en: "Use of Sequential IDs"
+    es: "Uso de IDs Secuenciales"
+  type: web
+  category: Other
+  description:
+    en: |
+      Using sequential identifiers (e.g., auto-incremented integers) for user IDs, object IDs, or resource locators can lead to security issues when these identifiers are exposed in URLs, APIs, or client-side applications. Attackers may easily guess or enumerate IDs to gain unauthorized access to resources that they should not be able to view or manipulate.
+      Without proper authorization checks, this pattern can result in Insecure Direct Object Reference (IDOR) vulnerabilities, where an attacker accesses other users' data by modifying the ID in a request.
+    pt-br: |
+      O uso de identificadores sequenciais (por exemplo, inteiros auto-incrementados) para IDs de usuários, objetos ou localizadores de recursos pode causar problemas de segurança quando esses identificadores são expostos em URLs, APIs ou aplicações no lado do cliente. Atacantes podem facilmente adivinhar ou enumerar os IDs para acessar recursos de forma não autorizada.
+      Na ausência de verificações adequadas de autorização, esse padrão pode resultar em vulnerabilidades do tipo Referência Direta Insegura a Objetos (IDOR), nas quais um atacante acessa dados de outros usuários apenas modificando o ID em uma requisição.
+    es: |
+      El uso de identificadores secuenciales (por ejemplo, enteros auto-incrementales) para IDs de usuarios, objetos o localizadores de recursos puede generar problemas de seguridad cuando estos identificadores se exponen en URLs, APIs o aplicaciones del lado del cliente. Los atacantes pueden adivinar o enumerar fácilmente los IDs para acceder a recursos sin autorización.
+      Sin comprobaciones adecuadas de autorización, este patrón puede dar lugar a vulnerabilidades de Referencia Directa Insegura a Objetos (IDOR), donde un atacante accede a datos de otros usuarios modificando el ID en una solicitud.
+  impact:
+    en: |
+      The use of predictable or sequential IDs may lead to:
+      - Unauthorized access to sensitive data or user accounts (IDOR);
+      - Exposure of internal data structure or record count;
+      - Data integrity issues if unauthorized modifications are possible;
+      - Privacy violations through information disclosure.
+    pt-br: |
+      O uso de IDs previsíveis ou sequenciais pode levar a:
+      - Acesso não autorizado a dados sensíveis ou contas de usuários (IDOR);
+      - Exposição da estrutura interna de dados ou do número total de registros;
+      - Problemas de integridade dos dados, caso modificações não autorizadas sejam possíveis;
+      - Violações de privacidade por meio da divulgação de informações.
+    es: |
+      El uso de IDs predecibles o secuenciales puede llevar a:
+      - Acceso no autorizado a datos sensibles o cuentas de usuario (IDOR);
+      - Exposición de la estructura interna de datos o la cantidad de registros;
+      - Problemas de integridad de los datos si se permiten modificaciones no autorizadas;
+      - Violaciones de la privacidad mediante la divulgación de información.
+  recommendation:
+    en: |
+      To mitigate this issue:
+      - Use unpredictable, non-sequential identifiers (e.g., UUIDs) for public-facing resources;
+      - Implement robust access control checks on all resource-accessing endpoints;
+      - Avoid exposing internal identifiers when not necessary;
+      - Log and monitor requests for signs of enumeration or tampering.
+    pt-br: |
+      Para mitigar esse problema:
+      - Utilize identificadores imprevisíveis e não sequenciais (por exemplo, UUIDs) para recursos expostos publicamente;
+      - Implemente verificações robustas de controle de acesso em todos os endpoints que acessam recursos;
+      - Evite expor identificadores internos quando não for necessário;
+      - Registre e monitore requisições em busca de sinais de enumeração ou adulteração.
+    es: |
+      Para mitigar este problema:
+      - Use identificadores impredecibles y no secuenciales (por ejemplo, UUIDs) para recursos accesibles públicamente;
+      - Implemente controles de acceso sólidos en todos los endpoints que acceden a recursos;
+      - Evite exponer identificadores internos cuando no sea necesario;
+      - Registre y supervise las solicitudes en busca de señales de enumeración o manipulación.
+  references:
+    - https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html
+    - https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/
+    - https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html
+    - https://cwe.mitre.org/data/definitions/639.html
