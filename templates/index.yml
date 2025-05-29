@@ -53,3 +53,4 @@ index:
     51: sensitive-token-exposed-in-url
     52: csp-misconfiguration
     53: jwt-misconfiguration
+    54: use-of-sequential-ids
