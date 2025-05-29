@@ -52,3 +52,4 @@ index:
     50: reusable-token
     51: sensitive-token-exposed-in-url
     52: csp-misconfiguration
+    53: jwt-misconfiguration
