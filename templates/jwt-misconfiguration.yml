@@ -1,0 +1,43 @@
+vulnerability:
+  name:
+    pt-br: "Configuração Incorreta de JWT"
+    en: "JWT Misconfiguration"
+    es: "Configuración Incorrecta de JWT"
+  type: web
+  category: Misconfiguration
+  description:
+    en: |
+      JSON Web Tokens (JWT) are widely used for stateless authentication in web applications. A misconfiguration in their implementation or validation can lead to severe security flaws. 
+      Common misconfigurations include the use of weak or guessable signing secrets, failure to validate token signatures, accepting tokens signed with insecure algorithms like `none`, or improper handling of token expiration and audience claims. These issues may allow attackers to forge valid tokens, impersonate users, or gain unauthorized access to protected resources.
+    pt-br: |
+      JSON Web Tokens (JWT) são amplamente utilizados para autenticação sem estado em aplicações web. Uma configuração incorreta na sua implementação ou validação pode causar falhas de segurança graves.
+      Erros comuns incluem o uso de secrets fracas ou previsíveis para assinatura, falha na validação da assinatura do token, aceitação de tokens assinados com algoritmos inseguros como `none` ou tratamento inadequado de expiração e declarações como `aud`. Esses problemas podem permitir que atacantes forjem tokens válidos, se passem por usuários ou acessem recursos protegidos sem autorização.
+    es: |
+      Los JSON Web Tokens (JWT) se utilizan ampliamente para la autenticación sin estado en aplicaciones web. Una configuración incorrecta en su implementación o validación puede conducir a graves fallos de seguridad.
+      Las configuraciones incorrectas comunes incluyen el uso de secrets de firma débiles o predecibles, la falta de validación de la firma del token, la aceptación de tokens firmados con algoritmos inseguros como `none`, o el manejo inadecuado de la expiración del token y de declaraciones como `aud`. Estos problemas pueden permitir a los atacantes falsificar tokens válidos, suplantar usuarios o acceder a recursos protegidos sin autorización.
+  recommendation:
+    en: |
+      To mitigate risks, it is recommended to:
+      - Always validate JWT signatures using a secure and appropriate algorithm (e.g., RS256 instead of HS256 for public/private key pairs);
+      - Never accept tokens with the `alg` set to `none`;
+      - Use strong, randomly generated secrets for HMAC-based algorithms;
+      - Set and validate standard claims like `exp`, `aud`, and `iss`;
+      - Implement proper token revocation and expiration mechanisms.
+    pt-br: |
+      Para mitigar os riscos, recomenda-se:
+      - Sempre validar assinaturas de JWT usando um algoritmo seguro e apropriado (por exemplo, RS256 em vez de HS256 para pares de chave pública/privada);
+      - Nunca aceitar tokens com o `alg` definido como `none`;
+      - Usar secrets fortes e aleatórios para algoritmos baseados em HMAC;
+      - Definir e validar declarações padrão como `exp`, `aud` e `iss`;
+      - Implementar mecanismos adequados de revogação e expiração de tokens.
+    es: |
+      Para mitigar los riesgos, se recomienda:
+      - Validar siempre las firmas de JWT utilizando un algoritmo seguro y adecuado (por ejemplo, RS256 en lugar de HS256 para pares de clave pública/privada);
+      - Nunca aceptar tokens con `alg` establecido como `none`;
+      - Usar secrets fuertes y aleatorios para algoritmos basados en HMAC;
+      - Establecer y validar declaraciones estándar como `exp`, `aud` y `iss`;
+      - Implementar mecanismos adecuados de revocación y expiración de tokens.
+  references:
+    - https://owasp.org/API-Security/editions/2023/en/0xa2-broken-authentication/
+    - https://jwt.io/introduction/
+    - https://portswigger.net/web-security/jwt
