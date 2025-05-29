@@ -1,0 +1,43 @@
+vulnerability:
+  name:
+    pt-br: "Falsificação de Requisições no Lado do Servidor (SSRF)"
+    en: "Server-Side Request Forgery (SSRF)"
+    es: "Falsificación de Solicitudes del Lado del Servidor (SSRF)"
+  type: web
+  category: Injection
+  description:
+    en: |
+      Server-Side Request Forgery (SSRF) is a vulnerability that occurs when an attacker is able to manipulate a server-side application into making HTTP requests to unintended destinations. This typically happens when a server fetches remote resources based on user-supplied input without adequate validation or sanitization.
+      SSRF can allow attackers to interact with internal services that are not otherwise exposed to the internet, access metadata services in cloud environments, and bypass network controls, potentially leading to data exfiltration, port scanning, or remote code execution depending on the internal services available.
+    pt-br: |
+      A Falsificação de Requisições no Lado do Servidor (SSRF) é uma vulnerabilidade que ocorre quando um atacante consegue induzir uma aplicação no lado do servidor a realizar requisições HTTP para destinos não intencionados. Isso geralmente acontece quando o servidor busca recursos remotos com base em entradas fornecidas pelo usuário sem validação ou sanitização adequada.
+      Um ataque SSRF pode permitir que atacantes interajam com serviços internos que não estão expostos à internet, acessem serviços de metadados em ambientes de nuvem e contornem controles de rede, potencialmente levando à exfiltração de dados, varredura de portas ou execução remota de código, dependendo dos serviços internos disponíveis.
+    es: 
+      La Falsificación de Solicitudes del Lado del Servidor (SSRF) es una vulnerabilidad que ocurre cuando un atacante puede manipular una aplicación del lado del servidor para que realice solicitudes HTTP a destinos no previstos. Esto sucede comúnmente cuando el servidor recupera recursos remotos basándose en entradas del usuario sin validación o saneamiento adecuados.
+      SSRF puede permitir a los atacantes interactuar con servicios internos que normalmente no están expuestos a internet, acceder a servicios de metadatos en entornos en la nube y eludir controles de red, lo que potencialmente conduce a exfiltración de datos, escaneo de puertos o ejecución remota de código según los servicios internos disponibles.
+  recommendation:
+    en: |
+      To prevent SSRF vulnerabilities:
+      - Avoid using user input directly in URL fetch operations;
+      - Implement strict allowlists of permitted domains/IPs;
+      - Enforce network-level controls to block access to internal or sensitive endpoints;
+      - Disable unused protocols (e.g., `file://`, `gopher://`) in server requests;
+      - Sanitize and validate all user-supplied input used in network requests.
+    pt-br: |
+      Para prevenir vulnerabilidades SSRF:
+      - Evite usar diretamente entradas do usuário em operações de busca de URLs;
+      - Implemente listas de permissão restritas com domínios/IPs autorizados;
+      - Aplique controles de rede para bloquear acesso a endpoints internos ou sensíveis;
+      - Desabilite protocolos não utilizados (por exemplo, `file://`, `gopher://`) nas requisições do servidor;
+      - Sanitizar e validar todas as entradas do usuário usadas em requisições de rede.
+    es: |
+      Para prevenir vulnerabilidades SSRF:
+      - Evite usar entradas del usuario directamente en operaciones de obtención de URLs;
+      - Implemente listas blancas estrictas de dominios/IPs permitidos;
+      - Aplique controles de red para bloquear el acceso a endpoints internos o sensibles;
+      - Deshabilite protocolos no utilizados (como `file://`, `gopher://`) en solicitudes del servidor;
+      - Saneé y valide toda entrada del usuario utilizada en solicitudes de red.
+  references:
+    - https://owasp.org/www-community/attacks/Server_Side_Request_Forgery
+    - https://portswigger.net/web-security/ssrf
+    - https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html

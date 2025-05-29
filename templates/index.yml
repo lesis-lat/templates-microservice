@@ -54,3 +54,4 @@ index:
     52: csp-misconfiguration
     53: jwt-misconfiguration
     54: use-of-sequential-ids
+    55: server-side-request-forgery
