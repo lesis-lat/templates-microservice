@@ -51,4 +51,7 @@ index:
     49: permissive-password-policy
     50: reusable-token
     51: sensitive-token-exposed-in-url
-    52: server-side-request-forgery
+    52: csp-misconfiguration
+    53: jwt-misconfiguration
+    54: use-of-sequential-ids
+    55: server-side-request-forgery
