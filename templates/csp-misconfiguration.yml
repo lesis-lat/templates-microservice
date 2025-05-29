@@ -1,0 +1,45 @@
+vulnerability:
+  name:
+    pt-br: "Configuração Incorreta de CSP"
+    en: "CSP Misconfiguration"
+    es: "Configuración Incorrecta de CSP"
+  type: web
+  category: Misconfiguration
+  description:
+    en: |
+      Content Security Policy (CSP) is a security mechanism that helps prevent cross-site scripting (XSS), clickjacking, and other code injection attacks by defining approved sources of content that browsers may load. When CSP is not properly implemented, it may leave the application exposed to a wide range of injection attacks.
+      Common misconfigurations include overly permissive directives such as `default-src *`, allowing inline scripts (`'unsafe-inline'`), or failing to include a CSP header altogether. These lapses weaken or entirely negate the protection CSP is intended to provide.
+    pt-br: |
+      A Content Security Policy (CSP) é um mecanismo de segurança que ajuda a prevenir ataques como cross-site scripting (XSS), clickjacking e outras injeções de código, definindo quais fontes de conteúdo são permitidas pelo navegador. Quando mal implementada, a CSP pode deixar a aplicação vulnerável a diversos tipos de ataques de injeção.
+      As falhas mais comuns incluem diretivas excessivamente permissivas, como `default-src *`, permissão de scripts inline (`'unsafe-inline'`) ou ausência total do cabeçalho CSP. Esses erros reduzem ou anulam completamente a proteção oferecida pela política.
+    es: |
+      La Política de Seguridad de Contenidos (CSP) es un mecanismo de seguridad que ayuda a prevenir ataques como cross-site scripting (XSS), clickjacking y otras inyecciones de código al definir qué fuentes de contenido pueden cargarse en el navegador. Si no se configura adecuadamente, la CSP puede dejar la aplicación vulnerable a diversos ataques de inyección.
+      Las configuraciones incorrectas comunes incluyen directivas demasiado permisivas como `default-src *`, permitir scripts inline (`'unsafe-inline'`) o no establecer ninguna política CSP. Estos errores reducen o eliminan la efectividad de la protección.
+  recommendation:
+    en: |
+      To mitigate risks, it is recommended to:
+      - Define a strict and specific CSP policy that avoids wildcards like `*`;
+      - Avoid using `'unsafe-inline'` and `'unsafe-eval'` in script-related directives;
+      - Use nonces or hashes to allow only trusted inline scripts;
+      - Continuously test and audit the effectiveness of the CSP policy;
+      - Monitor violations using the `Content-Security-Policy-Report-Only` header before enforcement.
+    pt-br: |
+      Para mitigar os riscos, recomenda-se:
+      - Definir uma política CSP rigorosa e específica, evitando curingas como `*`;
+      - Evitar o uso de `'unsafe-inline'` e `'unsafe-eval'` em diretivas relacionadas a scripts;
+      - Utilizar nonces ou hashes para permitir apenas scripts inline confiáveis;
+      - Testar e auditar continuamente a efetividade da política CSP;
+      - Monitorar violações utilizando o cabeçalho `Content-Security-Policy-Report-Only` antes de aplicar a política em modo de bloqueio.
+    es: |
+      Para mitigar los riesgos, se recomienda:
+      - Definir una política CSP estricta y específica que evite comodines como `*`;
+      - Evitar el uso de `'unsafe-inline'` y `'unsafe-eval'` en directivas de scripts;
+      - Utilizar nonces o hashes para permitir solo scripts inline confiables;
+      - Probar y auditar continuamente la efectividad de la política CSP;
+      - Supervisar violaciones usando el encabezado `Content-Security-Policy-Report-Only` antes de su aplicación estricta.
+  references:
+    - https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP
+    - https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html
+    - https://owasp.org/www-community/controls/Content_Security_Policy
+    - https://content-security-policy.com
+
