@@ -1,0 +1,66 @@
+vulnerability:
+  name:
+    pt-br: "Risco de DNS Rebinding"
+    en: "DNS Rebinding Risk"
+    es: "Riesgo de DNS Rebinding"
+  type: web
+  category: Misconfiguration
+  description:
+    en: |
+      DNS Rebinding is a technique that allows an attacker to bypass the browser's Same-Origin Policy by resolving a domain to a private IP address after an initial resolution to a public IP. This behavior can be abused to gain access to internal services or systems that are normally protected behind firewalls or NAT.
+
+      When an organization's public subdomains resolve to internal IP addresses (e.g., RFC1918), it creates a condition that enables DNS Rebinding attacks. If combined with vulnerabilities like Server-Side Request Forgery (SSRF), this can lead to serious exploitation scenarios including unauthorized access to internal APIs, databases, or internal dashboards.
+
+      Example subdomains pointing to internal IPs:
+        - `internal.example.com` → 192.168.0.10
+        - `dashboard.example.com` → 10.0.0.12
+    pt-br: |
+      DNS Rebinding é uma técnica que permite a um atacante burlar a política de Same-Origin dos navegadores, resolvendo um domínio inicialmente para um IP público e, posteriormente, para um IP interno. Esse comportamento pode ser explorado para acessar serviços ou sistemas internos normalmente protegidos por firewall ou NAT.
+
+      Quando subdomínios públicos de uma organização resolvem para endereços IP internos (como os definidos na RFC1918), isso configura uma possibilidade de ataque por DNS Rebinding. Se combinado com outras falhas, como SSRF (Server-Side Request Forgery), o impacto pode incluir o acesso não autorizado a APIs internas, bancos de dados ou painéis administrativos.
+
+      Exemplos de subdomínios com apontamento para IPs internos:
+        - `internal.example.com` → 192.168.0.10
+        - `dashboard.example.com` → 10.0.0.12
+    es: |
+      DNS Rebinding es una técnica que permite a un atacante eludir la política de Same-Origin del navegador al resolver un dominio primero hacia una IP pública y luego hacia una IP privada. Este comportamiento puede ser aprovechado para acceder a servicios internos que normalmente estarían protegidos por firewalls o NAT.
+
+      Cuando los subdominios públicos de una organización apuntan a direcciones IP internas (por ejemplo, RFC1918), se habilita una condición que permite ataques de DNS Rebinding. Combinado con otras vulnerabilidades como SSRF, esto puede llevar a escenarios de explotación graves, incluyendo el acceso no autorizado a APIs internas o interfaces administrativas.
+
+      Ejemplos de subdominios apuntando a IPs privadas:
+        - `internal.example.com` → 192.168.0.10
+        - `dashboard.example.com` → 10.0.0.12
+  recommendation:
+    en: |
+      It is recommended to acquire and use a separate, dedicated domain exclusively for internal organizational resources — for example, `internal-example.com`. This domain should be used solely for subdomains that resolve to private IP addresses (RFC1918), isolating internal services from the public attack surface.
+
+      This separation allows:
+      1. The new domain to remain excluded from allow lists, CORS rules, or other origin-based security policies.
+      2. External applications to be unable to reach internal services, even in the presence of SSRF or DNS Rebinding flaws.
+      3. Internal environments to be protected with stricter security controls and monitoring.
+
+      Important: After migration, old subdomains (e.g., `internal.example.com`, `dashboard.example.com`) should be decommissioned or securely redirected to prevent residual misuse.
+
+    pt-br: |
+      Recomenda-se a aquisição e uso de um domínio separado e exclusivo para os recursos internos da organização — por exemplo, `internal-exemplo.com`. Esse domínio deve ser utilizado apenas para subdomínios que apontam para endereços IP privados (RFC1918), isolando os serviços internos da superfície de ataque pública.
+
+      Essa separação permite:
+      1. Que o novo domínio nunca seja incluído em allow lists, regras CORS ou políticas de segurança baseadas em origem confiável.
+      2. Que aplicações externas não consigam alcançar os serviços internos, mesmo na presença de falhas como SSRF ou DNS Rebinding.
+      3. Que o ambiente interno receba políticas e controles de segurança mais restritivos e específicos.
+
+      Importante: Após a migração, os subdomínios antigos (como `internal.example.com`, `dashboard.example.com`) devem ser desativados ou redirecionados de forma segura para evitar uso indevido residual.
+
+    es: |
+      Se recomienda adquirir y utilizar un dominio separado y exclusivo para los recursos internos de la organización — por ejemplo, `internal-ejemplo.com`. Este dominio debe ser usado únicamente para subdominios que apunten a direcciones IP privadas (RFC1918), aislando así los servicios internos de la superficie de ataque pública.
+
+      Esta separación permite:
+      1. Que el nuevo dominio no sea incluido en listas blancas, reglas CORS u otras políticas de seguridad basadas en el origen.
+      2. Que aplicaciones externas no puedan acceder a los servicios internos, incluso en presencia de vulnerabilidades como SSRF o DNS Rebinding.
+      3. Que el entorno interno tenga políticas de seguridad más específicas y rigurosas.
+
+      Importante: Después de la migración, los subdominios antiguos (como `internal.example.com`, `dashboard.example.com`) deben ser eliminados o redirigidos de forma segura para evitar usos indebidos.
+
+  references:
+    - https://www.akamai.com/glossary/what-is-dns-rebinding
+    - https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/
