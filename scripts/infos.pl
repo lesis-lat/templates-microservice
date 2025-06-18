@@ -1,37 +1,47 @@
 #!/usr/bin/env perl
 
+our $VERSION = '0.01';
+
 use strict;
 use warnings;
 use YAML::XS qw(LoadFile);
 use File::Find;
 use utf8;
+use English qw(-no_match_vars);
 
-binmode(STDOUT, ":utf8");
+binmode(STDOUT, ":encoding(UTF-8)");
 
 my %categories;
 my %types;
 
 sub extract_fields {
     my ($file) = @_;
-    return if $file =~ m{/index\.ya?ml$};
+    if ( $file =~ m{/index\.ya?ml$}msx ) {
+        return;
+    }
 
     my $data;
-    eval {
-        $data = LoadFile($file);
-    };
-    return if $@;
-    return unless ref $data eq 'HASH';
-    return unless exists $data->{vulnerability} && ref $data->{vulnerability} eq 'HASH';
+    my $eval_ok = eval { $data = LoadFile($file); 1 };
+    if ( !$eval_ok ) {
+        return;
+    }
+    if ( !( ref $data eq 'HASH' ) ) {
+        return;
+    }
+    if ( !( exists $data->{vulnerability} && ref $data->{vulnerability} eq 'HASH' ) ) {
+        return;
+    }
 
     my $vuln = $data->{vulnerability};
 
-    if (defined $vuln->{category} && $vuln->{category} ne '') {
-        $categories{$vuln->{category}}++;
+    if ( defined $vuln->{category} && $vuln->{category} ne q{} ) {
+        $categories{ $vuln->{category} }++;
     }
 
-    if (defined $vuln->{type} && $vuln->{type} ne '') {
-        $types{$vuln->{type}}++;
+    if ( defined $vuln->{type} && $vuln->{type} ne q{} ) {
+        $types{ $vuln->{type} }++;
     }
+    return;
 }
 
 sub find_yaml_files {
@@ -40,8 +50,9 @@ sub find_yaml_files {
 
     find(
         sub {
-            return unless -f $_ && $_ =~ /\.ya?ml$/;
-            push @files, $File::Find::name;
+            if ( -f && /\.ya?ml$/msx ) {
+                push @files, $File::Find::name;
+            }
         },
         $dir
     );
@@ -50,7 +61,7 @@ sub find_yaml_files {
 }
 
 sub main {
-    my $dir = shift @ARGV or die "Usage: $0 <directory>\n";
+    my $dir = shift @ARGV or die "Usage: $PROGRAM_NAME <directory>\n";
     my @yamls = find_yaml_files($dir);
 
     foreach my $file (@yamls) {
@@ -58,14 +69,15 @@ sub main {
     }
 
     print "Unique categories:\n";
-    foreach my $cat (sort keys %categories) {
+    foreach my $cat ( sort keys %categories ) {
         print "- $cat ($categories{$cat})\n";
     }
 
     print "\nUnique types:\n";
-    foreach my $type (sort keys %types) {
+    foreach my $type ( sort keys %types ) {
         print "- $type ($types{$type})\n";
     }
+    return;
 }
 
 main();
