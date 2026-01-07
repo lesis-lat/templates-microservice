@@ -6,7 +6,6 @@ use strict;
 use warnings;
 use YAML::XS qw(LoadFile);
 use File::Find;
-use Encode qw(decode);
 use utf8;
 use English qw(-no_match_vars);
 
@@ -87,4 +86,3 @@ sub main {
 }
 
 main();
-
