@@ -68,7 +68,7 @@ get q{/} => sub {
 
 app -> hook(
     after_render => sub {
-        my ($self, $output, $format) = @_;
+        my ($self) = @_;
 
         $self -> res -> headers -> header('Content-Security-Policy' => q{default-src 'self'});
         $self -> res -> headers -> header('X-Content-Type-Options' => 'nosniff');
