@@ -1,5 +1,3 @@
-#!/usr/bin/env perl
-
 use 5.030;
 use utf8;
 use strict;
@@ -16,17 +14,17 @@ get q{/} => sub {
     my $lang   = $self -> param('lang') || 'en';
     my $id     = $self -> param('id');
     my $yaml   = YAML::XS::LoadFile('./templates/index.yml');
-    my $files  = $yaml -> {"index"};
-    my $result = [];
+    my $index  = $yaml -> {"index"};
+    my $items  = [];
 
-    while (my ($key, $value) = each %{$files}) {
-        my $load  = YAML::XS::LoadFile("./templates/$value.yml");
+    while (my ($template_id, $template_file) = each %{$index}) {
+        my $template_data = YAML::XS::LoadFile("./templates/$template_file.yml");
 
-        if ($load) {
-            my $template = $load -> {"vulnerability"};
+        if ($template_data) {
+            my $template = $template_data -> {"vulnerability"};
 
             my $item = {
-                "id"             => $key,
+                "id"             => $template_id,
                 "name"           => $template -> {"name"} -> {$lang},
                 "type"           => $template -> {"type"},
                 "category"       => $template -> {"category"},
@@ -35,20 +33,20 @@ get q{/} => sub {
                 "references"     => $template -> {"references"}
             };
 
-            push @{$result}, $item;
+            push @{$items}, $item;
         }
     }
 
-    @{$result} = sort { $a->{"id"} <=> $b->{"id"} } @{$result};
+    @{$items} = sort { $a -> {"id"} <=> $b -> {"id"} } @{$items};
 
     if ($id) {
-        for my $vuln (@{$result}) {
-            if ($vuln -> {"id"} == $id) {
-                $result = $vuln;
+        for my $item (@{$items}) {
+            if ($item -> {"id"} == $id) {
+                $items = $item;
 
                 return $self -> render(
                     status => 200,
-                    json   => { "templates" => $result }
+                    json   => { "templates" => $items }
                 );
             }
         }
@@ -61,7 +59,7 @@ get q{/} => sub {
 
     return $self -> render(
         status => 200,
-        json   => { "templates" => $result }
+        json   => { "templates" => $items }
     );
 };
 
