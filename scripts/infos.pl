@@ -1,5 +1,3 @@
-#!/usr/bin/env perl
-
 our $VERSION = '0.01';
 
 use strict;
@@ -20,26 +18,26 @@ sub extract_fields {
         return;
     }
 
-    my $data;
-    my $eval_ok = eval { $data = LoadFile($file); 1 };
-    if ( !$eval_ok ) {
+    my $yaml_data;
+    my $load_ok = eval { $yaml_data = LoadFile($file); 1 };
+    if ( !$load_ok ) {
         return;
     }
-    if ( !( ref $data eq 'HASH' ) ) {
+    if ( !( ref $yaml_data eq 'HASH' ) ) {
         return;
     }
-    if ( !( exists $data->{vulnerability} && ref $data->{vulnerability} eq 'HASH' ) ) {
+    if ( !( exists $yaml_data -> {vulnerability} && ref $yaml_data -> {vulnerability} eq 'HASH' ) ) {
         return;
     }
 
-    my $vuln = $data->{vulnerability};
+    my $vulnerability = $yaml_data -> {vulnerability};
 
-    if ( defined $vuln->{category} && $vuln->{category} ne q{} ) {
-        $categories{ $vuln->{category} }++;
+    if ( defined $vulnerability -> {category} && $vulnerability -> {category} ne q{} ) {
+        $categories{ $vulnerability -> {category} }++;
     }
 
-    if ( defined $vuln->{type} && $vuln->{type} ne q{} ) {
-        $types{ $vuln->{type} }++;
+    if ( defined $vulnerability -> {type} && $vulnerability -> {type} ne q{} ) {
+        $types{ $vulnerability -> {type} }++;
     }
     return;
 }
@@ -61,16 +59,16 @@ sub find_yaml_files {
 }
 
 sub main {
-    my $dir = shift @ARGV or die "Usage: $PROGRAM_NAME <directory>\n";
-    my @yamls = find_yaml_files($dir);
+    my $directory = shift @ARGV or die "Usage: $PROGRAM_NAME <directory>\n";
+    my @yaml_files = find_yaml_files($directory);
 
-    foreach my $file (@yamls) {
+    foreach my $file (@yaml_files) {
         extract_fields($file);
     }
 
     print "Unique categories:\n";
-    foreach my $cat ( sort keys %categories ) {
-        print "- $cat ($categories{$cat})\n";
+    foreach my $category ( sort keys %categories ) {
+        print "- $category ($categories{$category})\n";
     }
 
     print "\nUnique types:\n";
@@ -81,4 +79,3 @@ sub main {
 }
 
 main();
-
