@@ -13,14 +13,14 @@ my %categories;
 my %types;
 
 sub extract_fields {
-    my ($file) = @_;
-    if ( $file =~ m{/index\.ya?ml$}msx ) {
+    my ($file_path) = @_;
+    if ( $file_path =~ m{/index\.ya?ml$}msx ) {
         return;
     }
 
     my $yaml_data;
-    my $load_ok = eval { $yaml_data = LoadFile($file); 1 };
-    if ( !$load_ok ) {
+    my $load_successful = eval { $yaml_data = LoadFile($file_path); 1 };
+    if ( !$load_successful ) {
         return;
     }
     if ( !( ref $yaml_data eq 'HASH' ) ) {
@@ -30,20 +30,20 @@ sub extract_fields {
         return;
     }
 
-    my $vulnerability = $yaml_data -> {vulnerability};
+    my $vulnerability_data = $yaml_data -> {vulnerability};
 
-    if ( defined $vulnerability -> {category} && $vulnerability -> {category} ne q{} ) {
-        $categories{ $vulnerability -> {category} }++;
+    if ( defined $vulnerability_data -> {category} && $vulnerability_data -> {category} ne q{} ) {
+        $categories{ $vulnerability_data -> {category} }++;
     }
 
-    if ( defined $vulnerability -> {type} && $vulnerability -> {type} ne q{} ) {
-        $types{ $vulnerability -> {type} }++;
+    if ( defined $vulnerability_data -> {type} && $vulnerability_data -> {type} ne q{} ) {
+        $types{ $vulnerability_data -> {type} }++;
     }
     return;
 }
 
 sub find_yaml_files {
-    my ($dir) = @_;
+    my ($directory) = @_;
     my @files;
 
     find(
@@ -52,14 +52,17 @@ sub find_yaml_files {
                 push @files, $File::Find::name;
             }
         },
-        $dir
+        $directory
     );
 
     return @files;
 }
 
 sub main {
-    my $directory = shift @ARGV or die "Usage: $PROGRAM_NAME <directory>\n";
+    my $directory = shift @ARGV;
+    if ( !defined $directory ) {
+        die "Usage: $PROGRAM_NAME <directory>\n";
+    }
     my @yaml_files = find_yaml_files($directory);
 
     foreach my $file (@yaml_files) {
