@@ -12,8 +12,6 @@ updates:
       separator: "/"
     reviewers:
       - "lesis-lat/general-developers"
-    assignees:
-      - "lesis-lat/general-developers"
     labels:
       - "dependencies"
       - "docker"
@@ -30,8 +28,6 @@ updates:
       timezone: "America/Sao_Paulo"
     open-pull-requests-limit: 5
     reviewers:
-      - "lesis-lat/general-developers"
-    assignees:
       - "lesis-lat/general-developers"
     labels:
       - "dependencies"
