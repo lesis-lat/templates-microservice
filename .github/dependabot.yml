@@ -11,9 +11,9 @@ updates:
     pull-request-branch-name:
       separator: "/"
     reviewers:
-      - "EduardaDT"
+      - "lesis-lat/general-developers"
     assignees:
-      - "EduardaDT"
+      - "lesis-lat/general-developers"
     labels:
       - "dependencies"
       - "docker"
@@ -30,9 +30,9 @@ updates:
       timezone: "America/Sao_Paulo"
     open-pull-requests-limit: 5
     reviewers:
-      - "EduardaDT"
+      - "lesis-lat/general-developers"
     assignees:
-      - "EduardaDT"
+      - "lesis-lat/general-developers"
     labels:
       - "dependencies"
       - "github-actions"
